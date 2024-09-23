@@ -1005,7 +1005,7 @@
 
     const/16 v3, 0x17
 
-    invoke-interface {v0, v2, v3, v1}, Lcom/android/internal/telephony/CommandsInterface;->registerForUnsolNvCfgFinished(Landroid/os/Handler;ILjava/lang/Object;)V
+    nop
 
     .line 578
     :cond_3
