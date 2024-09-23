@@ -3042,9 +3042,7 @@
     if-eqz v0, :cond_0
 
     .line 1064
-    invoke-virtual {v0}, Lcom/android/internal/telephony/Phone;->getImsSwitch()Z
-
-    move-result v1
+    const/4 v1, 0x1
 
     .line 1066
     :cond_0
