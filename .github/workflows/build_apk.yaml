@@ -30,7 +30,19 @@ jobs:
 
     - run: java -jar apktool_${{ env.APKTOOL_VER }}.jar b .
 
+    - name: Generate diff file with patches
+      run: |
+        git fetch --unshallow
+        PATCH_NAME=$(basename "$GITHUB_REPOSITORY")
+        echo "PATCH_NAME=$PATCH_NAME" >> $GITHUB_ENV
+        git diff $(git rev-list --max-parents=0 HEAD) -- . ':(exclude).github' | tee "${PATCH_NAME}.patch"
+
     - uses: actions/upload-artifact@v3
       with:
         name: APK
         path: dist/HwIms.apk
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: Patch
+        path: "${{ env.PATCH_NAME }}.patch"
