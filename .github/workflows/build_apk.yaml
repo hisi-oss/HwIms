@@ -19,8 +19,8 @@ jobs:
         distribution: 'semeru'
         java-version: '11'
 
-    - name: Install aapt2
-      run: sudo apt-get update && sudo apt-get install -y aapt
+    - name: Install aapt2 and apksigner
+      run: sudo apt-get update && sudo apt-get install -y aapt apksigner
 
     - uses: robinraju/release-downloader@v1.5
       with:
@@ -29,6 +29,14 @@ jobs:
         fileName: 'apktool_${{ env.APKTOOL_VER }}.jar'
 
     - run: java -jar apktool_${{ env.APKTOOL_VER }}.jar b .
+
+    - name: Sign APK with test-keys
+      run: |
+        apksigner sign \
+          --key ./keys/platform.pk8 \
+          --cert ./keys/platform.x509.pem \
+          --v4-signing-enabled false \
+          --out HwIms-signed.apk dist/HwIms.apk
 
     - name: Generate diff file with patches
       run: |
@@ -39,8 +47,8 @@ jobs:
 
     - uses: actions/upload-artifact@v3
       with:
-        name: APK
-        path: dist/HwIms.apk
+        name: Signed APK
+        path: HwIms-signed.apk
 
     - uses: actions/upload-artifact@v3
       with:
