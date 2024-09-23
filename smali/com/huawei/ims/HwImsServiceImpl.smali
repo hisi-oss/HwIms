@@ -4773,7 +4773,7 @@
 .end method
 
 .method private updatePhoneBaseEvent()V
-    .locals 6
+    .locals 7
 
     .line 2940
     invoke-virtual {p0}, Lcom/huawei/ims/HwImsServiceImpl;->getDefaultPhone()Lcom/android/internal/telephony/Phone;
@@ -4827,7 +4827,9 @@
 
     iget-object v3, p0, Lcom/huawei/ims/HwImsServiceImpl;->mHandler:Landroid/os/Handler;
 
-    invoke-virtual {v2, v3}, Lcom/android/internal/telephony/ServiceStateTracker;->unregisterForDataRegStateOrRatChanged(Landroid/os/Handler;)V
+    const/4 v6, 0x1
+
+    invoke-virtual {v2, v6, v3}, Lcom/android/internal/telephony/ServiceStateTracker;->unregisterForDataRegStateOrRatChanged(ILandroid/os/Handler;)V
 
     .line 2957
     :cond_0
@@ -4879,7 +4881,9 @@
 
     const/16 v5, 0x3ef
 
-    invoke-virtual {v2, v4, v5, v3}, Lcom/android/internal/telephony/ServiceStateTracker;->registerForDataRegStateOrRatChanged(Landroid/os/Handler;ILjava/lang/Object;)V
+    const/4 v6, 0x1
+
+    invoke-virtual {v2, v6, v4, v5, v3}, Lcom/android/internal/telephony/ServiceStateTracker;->registerForDataRegStateOrRatChanged(ILandroid/os/Handler;ILjava/lang/Object;)V
 
     .line 2976
     :cond_2
